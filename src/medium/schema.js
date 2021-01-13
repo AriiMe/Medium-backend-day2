@@ -18,7 +18,9 @@ const Articles = new Schema({
         name: String,
         img: String,
     },
+    reviews: Array,
     cover: String,
+
 },
     { timestamp: true }
 )
