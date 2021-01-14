@@ -3,6 +3,7 @@
 const express = require("express");
 const ArticleSchema = require("./schema");
 const reviewsSchema = require("../reviews/schema");
+const AuthorSchema = require("../authors/schema");
 
 const articleRouter = express.Router();
 
@@ -170,6 +171,38 @@ articleRouter.delete("/:id/reviews/:reviewID", async (req, res) => {
         res.send(alteredReview);
     } catch (error) {
         console.log(error);
+    }
+});
+
+articleRouter.post("/:id/add-to-author/:authorID", async (req, res) => {
+    try {
+        await AuthorSchema.addArticleIdToAuthor(req.params.id, req.params.authorID);
+        res.send("added");
+    } catch (error) {
+        console.log(error);
+        res.status(500).send(error);
+    }
+});
+
+articleRouter.get("/", async (req, res) => {
+    try {
+        const allArticles = await ArticleSchema.find().populate("author");
+        res.send(allArticles);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send(error);
+    }
+});
+
+articleRouter.get("/:id", async (req, res) => {
+    try {
+        const article = await ArticleSchema.findById(req.params.id).populate(
+            "author"
+        );
+        res.send(article);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send(error);
     }
 });
 module.exports = articleRouter;

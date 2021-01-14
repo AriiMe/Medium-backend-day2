@@ -12,7 +12,7 @@ const reviewsSchema = new Schema(
             required: true,
         },
     },
-    { timestamp: true }
+    { timestamps: true }
 )
 
 module.exports = model("reviews", reviewsSchema)

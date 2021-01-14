@@ -1,28 +1,27 @@
 const { Schema, model } = require('mongoose')
 
-const Articles = new Schema({
-    headLine: {
-        type: String,
-        required: true,
+const ArticleSchema = new Schema(
+    {
+        headLine: {
+            type: String,
+            required: true,
+        },
+        subHead: String,
+        content: {
+            type: String,
+            required: true,
+        },
+        category: {
+            name: String,
+            img: String,
+        },
+        author: { type: Schema.Types.ObjectId, ref: "Author" },
+        reviews: Array,
+        cover: String,
     },
-    subHead: String,
-    content: {
-        type: String,
-        required: true,
-    },
-    category: {
-        name: String,
-        img: String,
-    },
-    author: {
-        name: String,
-        img: String,
-    },
-    reviews: Array,
-    cover: String,
+    { timestamps: true }
+);
 
-},
-    { timestamp: true }
-)
+const ArticleModel = model("Articles", ArticleSchema);
 
 module.exports = model("Article", Articles)

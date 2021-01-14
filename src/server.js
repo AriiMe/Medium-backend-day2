@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 
 const articleRouter = require("./medium");
+const authorRoute = require("./authors");
 
 const server = express();
 const port = process.env.PORT || 3001
@@ -12,7 +13,7 @@ const port = process.env.PORT || 3001
 server.use(cors());
 server.use(express.json());
 server.use("/medium", articleRouter)
-
+server.use("/authors", authorRoute);
 
 
 mongoose
